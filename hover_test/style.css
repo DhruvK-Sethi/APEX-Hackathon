@@ -1,0 +1,80 @@
+:root{
+    --primary:#444449;
+    --secondary:var(--primary);
+}
+html{
+margin: 0px;
+padding: 0px;
+}
+.container{
+
+    height: 1500px;
+    width: 100%;
+    background-image: linear-gradient(#d6cfcd,#eddabf,#cdb8b4);
+
+}
+.header{
+
+    background-color: var(--primary);
+    background-image: linear-gradient(to right,var(--primary),#454553,var(--primary));
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 4.5em;
+    /* border-radius: 60px; */
+
+    padding: 12px 10px;
+
+    box-shadow:#444449;
+}
+.nav-icons{
+    display: flex;
+    justify-items: center;
+    padding: 0px 10px;
+}
+.nav-icons button{
+    height:2em;
+    width: 5.5em;
+        border: none;
+    background: none;
+    cursor: pointer;
+    margin-right:30px;
+    margin-top: 1.3em;
+
+
+    font-size: 14pt;
+    font-weight: 750;
+    color: var(--primary);;
+
+    background-color: #cdb8b4;
+
+}
+
+.content{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#divLoginFormContainer{
+    border-radius: 30px;
+    background-color: rgba(50,50,50,0.75);
+    height: fit-content;
+    padding: 5%;
+    margin: 5% 5%;
+}
+
+#divInfoContainer{
+    margin: 5% 0px;
+    border-radius: 20px;
+}
+
+#hInfoHeader{
+    text-align: center;
+    font-size: 32pt;
+    line-height: 0px;
+    margin: 60px 0px;
+}
+
