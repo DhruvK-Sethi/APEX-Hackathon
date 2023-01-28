@@ -1,0 +1,270 @@
+/* Declare variables*/
+:root{
+    --primary:#444449;
+    --secondary:#eddabf;
+    --primaryGradient:linear-gradient(to right,var(--primary),#454553,var(--primary));
+}
+
+/* page container*/
+html{
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    outline: none;
+    color: white;
+}
+/* indivisual tag tweaks */
+hr{
+    width: 95%;
+}
+
+/* For main content*/
+body{
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 3000px;
+    /* margin: -10px; /* cheesy way of removing defualt margin*/
+    background-image: linear-gradient(#d6cfcd,#eddabf,#cdb8b4);
+}
+
+/* NAVBAR AND STUFF*/
+/* actual navbar container*/
+.header{
+    background-color: var(--primary);
+    background-image: var(--primaryGradient);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 4.5em;
+    margin-left: -10px;
+    margin-top: -10px;
+    margin-right: -10px;
+    /* border-radius: 60px; */
+    padding: 12px 10px;
+    box-shadow:#444449;
+}
+
+/* logo in navbar */
+.logo{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+/* Website name text on navbar */
+#hNavbarTitle{
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 38pt;
+    line-height: 0px;
+}
+
+/* Navbar Icons */
+.nav-icons{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+/* Navbar Buttons */
+.navbarButton{
+    background: none;
+    /* color: var(--primary); */
+    color: white;
+    font-size: 16pt;
+    font-weight: 600;
+    line-height: 0px;
+    max-height: 2em;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border: 2px solid;
+    border-radius: 5px;
+    /* background-color: #cdb8b4; */
+    border-color: var(--secondary);
+    background-color: none;
+    cursor: pointer;
+}
+
+/* Navbar Buttons on hover */
+.navbarButton:hover{
+    color: var(--primary);
+    background-color: var(--secondary);
+}
+
+/* LOGIN PART CONTENT */
+/* container for the huge title text */
+#divTitleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48pt;
+    line-height: 2em;
+    font-family: cursive;
+    letter-spacing: 30px;
+    background-image: url(/static/res/bg1.jpg);
+    width: 105%;
+    margin-left: -10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background-size: cover;
+    /* background-image: url("{{ url_for('static',filename='res/bg1.jpg') }}"); */
+}
+
+/* actual huge title */
+#hTitle{
+    font-weight: 100;
+}
+
+/* Login part parent */
+.loginContainer{
+    display:flex;
+    flex-wrap: nowrap;
+    width: 105%;
+    height: fit-content;
+    /* margin-top: 100px; */
+    background-color: rgba(var(--primary),1);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login form parent */
+#divLoginFormContainer{
+    border-radius: 20px;
+    /* background-color: rgba(50,50,50,0.75); */
+    width: fit-content;
+    background-color: var(--primary);
+    height: fit-content;
+    padding: 3em;
+    padding-bottom: 1.5em;
+    margin: 5% 5%;
+}
+
+/* Login part image parent */
+#divInfoContainer{
+    margin: 5% 0px;
+}
+
+/* Login part image */
+#imgBanner{
+    border-radius: 5px;
+    max-height: 750px;
+    max-width: 1000px;
+}
+
+/* Login form */
+#formLogin{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: space-between;
+
+    font-weight: 500;
+    font-family: monospace;
+    font-size: 18pt;
+    letter-spacing: 2px;
+}
+
+/* Login form row */
+.formRow{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px;
+}
+
+
+/* Login form field */
+.inputField{
+    font-size: 18pt;
+    margin: 10px;
+    margin-left: 15px;
+    color: white;
+    outline: none;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 2px solid ;
+    background: none;
+    border-color: var(--secondary);
+}
+
+.inputField:focus{
+    border-color: white;
+}
+
+/* Login form field label */
+.formLabel{
+    color: var(--secondary);
+}
+
+/* Login form submit button */
+#inputSubmit{
+    background: none;
+    color: white;
+    font-size: 16pt;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    justify-self: flex-end;
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: var(--secondary);
+    cursor: pointer;
+}
+#inputSubmit:hover{
+    color: var(--primary);
+    background-color: var(--secondary);
+}
+
+/* REGISTER PART STUFF */
+/* Register part parent */
+#divRegisterContainer {
+    background-color: var(--primary);
+    padding: 0px;
+    margin: 200px -10px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Register part image container */
+#divRegisterImageContainer{
+    margin: 40px auto ;
+}
+
+/* Register part image */
+#imgRegisterImage{
+    max-width: 600px;
+}
+
+/* Register form container */
+#divRegisterContentContainer{
+    margin: 40px auto ;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Register form title text */
+#pRegisterText{
+    color: var(--secondary);
+    font-size: 38pt;
+}
+
+/* register form buttons */
+.registerButton{
+    margin: 20px;
+    padding: 20px;
+    font-size: 20pt;
+    color: var(--secondary);
+    background: none;
+    border-color: var(--secondary);
+}
+
+.registerButton:hover{
+    color: var(--primary);
+    background: var(--secondary);
+}
