@@ -1,0 +1,31 @@
+div.col-sm {
+    border: 20px solid #181717;
+    border-radius: 100;
+    background-color: aqua;
+}
+
+.class1 {
+    background-color: aqua;
+}
+
+#class1 {
+    background-color: aqua;
+}
+
+.container {
+    background-color: aqua;
+}
+
+.button1 {
+    margin-top: 1000px;
+}
+
+input {
+    text-align: center;
+    padding-left: 3000px;
+    padding-right: 2000px;
+}
+
+.btn {
+    align-items: center;
+}
