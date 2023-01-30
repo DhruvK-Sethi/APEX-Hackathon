@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-    <link rel="stylesheet" href="styles1.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="style_login.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 
@@ -28,47 +28,28 @@
             <h1 class="logoName">LocaLite</h1>
         </div>
         <nav class="navbar">
-            <a href="#buyerForm">Login</a>
-            <a href="#sellerForm">Sign Up</a>
+            <a href="#login">Login</a>
+            <a href="#signUp">Sign Up</a>
             <a href="#about">About Us</a>
         </nav>
     </header>
 
-    <section class="buyerRegisteration" id="buyerRegisteration">
+    <section class="login" id="login">
         <div class="homecontent">
-            <h2 class="h">Join as a customer
+            <h2 id="h">LocaLite
             </h2>
-            <p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et
-                dolore magna aliqua.</p>
+            <p id="para">Bringing people together, locally</p>
         </div>
         <div class="buyerFormContainer">
             <form action="#" method="post">
                 <span class="formRow">
-                  <label for="name">Name :</label>
-                  <input type="text" id="inputName" name="name"><br><br>
-                </span>
-
-                <span class="formRow">
                   <label for="email">Email :</label>
                   <input type="email" id="inputEmail" name="email"><br><br>
                 </span>
 
                 <span class="formRow">
-                  <label for="gender">Gender</label>
-                  <input type="radio" class="radioSelector" id="radioMale" name="gender" value="male">
-                  <label for="Male">Male</label>
-                  <input type="radio" class="radioSelector" id="radioFemale" name="gender" value="female">
-                  <label for="Female">Female</label><br><br>
-                </span>
-
-                <span class="formRow">
-                  <label for="state">State :</label>
-                  <input id="inputState" name="state"></input><br><br>
-                </span>
-                <span class="formRow">
-                  <label for="city">City :</label>
-                  <input id="inputCity" name="city"></input><br><br>
+                  <label for="password">Password :</label>
+                  <input type="password" id="inputPassword" name="password"><br><br>
                 </span>
 
                 <span class="formRow">
@@ -77,56 +58,15 @@
         </div>
 
     </section>
-
-    <section class="sellerRegisteration" id="sellerRegisteration">
-        <div class="sellerFormContainer">
-            <form action="#" method="post">
-                <span class="formRow">
-                  <label for="name">Name :</label>
-                  <input type="text" id="inputName" name="name"><br><br>
-                </span>
-
-                <span class="formRow">
-                  <label for="email">Email :</label>
-                  <input type="email" id="inputEmail" name="email"><br><br>
-                </span>
-
-                <span class="formRow">
-                  <label for="gender">Gender</label>
-                  <input type="radio" class="radioSelector" id="radioMale" name="gender" value="male">
-                  <label for="Male">Male</label>
-                  <input type="radio" class="radioSelector" id="radioFemale" name="gender" value="female">
-                  <label for="Female">Female</label><br><br>
-                </span>
-
-                <span class="formRow">
-                  <label for="shopName">Shop Name :</label>
-                  <input id="inputShopName" name="shopName"></input><br><br>
-                </span>
-                <span class="formRow">
-                  <label for="state">Shop State :</label>
-                  <input id="inputState" name="state"></input><br><br>
-                </span>
-                <span class="formRow">
-                  <label for="city">Shop City :</label>
-                  <input id="inputCity" name="city"></input><br><br>
-                </span>
-
-                <span class="formRow">
-                  <input type="submit" id="btnSubmit" value="Register">
-            </form>
-        </div>
-        <div class="homecontent">
-            <h2 class="h">Join as a Seller
-            </h2>
-            <p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et
-                dolore magna aliqua.</p>
+    <section id="signUp">
+        <p id="pRegisterText">Haven't joined us yet?</p>
+        <div id="divRegisterContentContainer">
+            <button class="registerButton" id="btnRegisterSelf">Register as Buyer</button>
+            <button class="registerButton" id="btnRegisterStore">Register as Seller</button>
         </div>
     </section>
-
     <!-- <hr> -->
-    <section class="blogs" id="blogs">
+    <section class="blogs" id="about">
 
         <div class="swiper blogs-row">
             <div class="swiper-wrapper">
@@ -137,6 +77,15 @@
                     <div class="content">
                         <h3>About Us</h3>
                         <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur corrupti aliquam
+                            molestiae ut maiores deleniti deserunt, officia fugiat, amet delectus iure, explicabo nulla
+                            cum. Amet doloremque repudiandae dolore pariatur nostrum?
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur corrupti aliquam
+                            molestiae ut maiores deleniti deserunt, officia fugiat, amet delectus iure, explicabo nulla
+                            cum. Amet doloremque repudiandae dolore pariatur nostrum?
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur corrupti aliquam
+                            molestiae ut maiores deleniti deserunt, officia fugiat, amet delectus iure, explicabo nulla
+                            cum. Amet doloremque repudiandae dolore pariatur nostrum?
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur corrupti aliquam
                             molestiae ut maiores deleniti deserunt, officia fugiat, amet delectus iure, explicabo nulla
                             cum. Amet doloremque repudiandae dolore pariatur nostrum?
@@ -196,13 +145,8 @@
             created by <span>APEX</span> |all rights reserved !
         </div>
     </footer>
-
-
-
-
-
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="index.js"></script>
+    <script src="index_registeration.js"></script>
 </body>
 
 </html>
