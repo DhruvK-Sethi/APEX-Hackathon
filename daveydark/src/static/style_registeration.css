@@ -21,8 +21,6 @@
     text-decoration: none;
     text-transform: capitalize;
     transition: .2s linear;
-
-
 }
 
 
@@ -111,6 +109,17 @@ html::-webkit-scrollbar-thumb {
 .sellerRegisteration .homecontent {
     margin-left: 0;
     width: 90%;
+}
+
+#divMapBuyer {
+    width: 600px;
+    height: 600px;
+    display: none;
+}
+#divMapSeller {
+    width: 600px;
+    height: 600px;
+    display: none;
 }
 
 #menu-bar {
@@ -231,10 +240,10 @@ section {
     margin-bottom: 10px;
     width: 100%;
     cursor: pointer;
-    font-size: 10pt;
+    font-size: 12pt;
     line-height: 0px;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
     text-align: right;
 }
 
@@ -244,7 +253,8 @@ section {
 
 .buyerFormContainer{
     background-color: rgba(255,255,255,0.5);
-    padding: 5% 8%;
+    backdrop-filter: blur(10px);
+    padding: 2% 8%;
     border-radius: 200px;
     margin: auto;
     display: flex;
@@ -257,7 +267,8 @@ section {
     width: 60%;
 }
 .sellerFormContainer{
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10x);
     padding: 5% 8%;
     border-radius: 200px;
     margin: auto;
@@ -303,6 +314,24 @@ section {
     border-color: var(--darker-beige);
     background: none;
     border-radius: 10px;
+}
+#inputLatitudeSeller, #inputLatitudeBuyer, #inputLongitudeBuyer, #inputLongitudeSeller{
+    border: none;
+}
+
+.formRow input[type="submit"]{
+    text-transform: none;
+    justify-self: center;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid;
+    border-color: var(--darker-beige);
+    background: none;
+    border-radius: 10px;
+}
+
+.coordField{
+    border: none;
 }
 
 .formRow select {

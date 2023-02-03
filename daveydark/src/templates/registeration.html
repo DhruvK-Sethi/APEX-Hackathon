@@ -7,16 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style_registeration.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="toggled-search-bar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js">
     <script src="/static/index_registeration.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+       crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+       crossorigin=""></script>
 </head>
 
 <body>
@@ -34,13 +36,14 @@
     </header>
 
     <section class="buyerRegisteration" id="buyerRegisteration">
-        <div class="homecontent">
+        <div class="homecontent" id="divHomeBuyer">
             <h2 class="h">Join as a customer
             </h2>
             <p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                 labore et
                 dolore magna aliqua.</p>
         </div>
+        <div class="homecontent" id="divMapBuyer"></div>
         <div class="buyerFormContainer">
             <form action="#" method="post">
                 <input type="hidden" name="form_id" value="buyer">
@@ -66,29 +69,31 @@
 
                 <span class="formRow">
                 <label for="states">State:</label>
-                <select id="states">
+                <select name="state" class="states">
                   <option value="" disabled selected>Select State</option>
                 </select>
                 </span>
 
                 <span class="formRow">
                 <label for="cities">City:</label>
-                <select id="cities">
+                <select name="city" class="cities">
                   <option value="" disabled selected>Select City</option>
                 </select>
                 </span>
 
                 <span class="formRow">
-                  <label for="latitude">Lat :</label>
-                  <input type="text" id="inputLatitudeBuyer" name="latitude"><br><br>
-                  <label for="longitude">Long :</label>
-                  <input type="text" id="inputLongitudeBuyer" name="longitude"><br><br>
+                  <label for="location">Location :</label>
+                  <input type="text" readonly id="inputLatitudeBuyer" name="latitude"><br><br>
+                  <input type="text" readonly id="inputLongitudeBuyer" name="longitude"><br><br>
                 </span>
                 <span class="formRow">
                     <a id="locationLinkBuyer" class="locLink">Use my current location</a>
                 </span>
                 <span class="formRow">
-                  <input type="submit" id="btnSubmit" value="Register">
+                    <a id="mapLinkBuyer" class="locLink">Open Map</a>
+                </span>
+                <span class="formRow">
+                  <input type="submit" class="submitBtn" id="btnSubmit" value="Register">
             </form>
         </div>
     </section>
@@ -122,49 +127,44 @@
                   <label for="shopName">Shop Name :</label>
                   <input id="inputShopName" name="shopName"></input><br><br>
                 </span>
-                <span class="formRow">
-                  <label for="state">Shop State :</label>
-                  <input id="inputState" name="state"></input><br><br>
-                </span>
-                <span class="formRow">
-                  <label for="city">Shop City :</label>
-                  <input id="inputCity" name="city"></input><br><br>
-                </span>
 
                 <span class="formRow">
                 <label for="states">State:</label>
-                <select id="states">
+                <select name="state" class="states">
                   <option value="" disabled selected>Select State</option>
                 </select>
                 </span>
 
                 <span class="formRow">
                 <label for="cities">City:</label>
-                <select id="cities">
+                <select name="city" class="cities">
                   <option value="" disabled selected>Select City</option>
                 </select>
                 </span>
                 <span class="formRow">
-                  <label for="latitude">Lat :</label>
-                  <input type="text" id="inputLatitudeSeller" name="latitude"><br><br>
-                  <label for="longitude">Long :</label>
-                  <input type="text" id="inputLongitudeSeller" name="longitude"><br><br>
+                  <label for="location">Location :</label>
+                  <input type="text" readonly id="inputLatitudeSeller" name="latitude"><br><br>
+                  <input type="text" readonly id="inputLongitudeSeller" name="longitude"><br><br>
                 </span>
                 <span class="formRow">
                     <a id="locationLinkSeller" class="locLink">Use my current location</a>
                 </span>
+                <span class="formRow">
+                    <a id="mapLinkSeller" class="locLink">Open Map</a>
+                </span>
 
                 <span class="formRow">
-                  <input type="submit" id="btnSubmit" value="Register">
+                  <input type="submit" class="submitBtn" id="btnSubmit" value="Register">
             </form>
         </div>
-        <div class="homecontent">
+        <div class="homecontent" id="divHomeSeller">
             <h2 class="h">Join as a Seller
             </h2>
             <p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                 labore et
                 dolore magna aliqua.</p>
         </div>
+        <div class="homecontent" id="divMapSeller"></div>
     </section>
 
     <!-- <hr> -->

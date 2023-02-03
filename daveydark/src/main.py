@@ -21,12 +21,12 @@ class Buyer(db.Model):
     def __init__(self,email,name,password,latitude,longitude,state,city,phone):
         self.email = email
         self.name = name
+        self.phone = phone
         self.password = password
         self.latitude = latitude
         self.longitude = longitude
         self.state = state
         self.city = city
-        self.phone = phone
 
 class Seller(db.Model):
     __tablename__ = 'sellers'
@@ -50,9 +50,27 @@ class Seller(db.Model):
         self.shop_city = shop_city
         self.phone = phone
 
+@app.route("/home")
+#home page route
+def home():
+    return render_template('index1.html')
+
 @app.route("/login",methods=["GET", "POST"])
 #login page route
 def login():
+    if request.method == "POST":
+        #check login info
+        email = request.form["email"]
+        password = request.form["password"]
+        usr = Buyer.query.filter_by(email=email).first()
+        if not usr:
+            usr = Seller.query.filter_by(email=email).first()
+        if not usr:
+            return redirect(url_for('register'))
+        if(usr.password == password):
+            return redirect(url_for('home'))
+        else:
+            return redirect(url_for('register'))
     return render_template("login.html")
 
 @app.route("/register",methods=["GET", "POST"])
@@ -69,6 +87,15 @@ def register():
             state = request.form['state']
             city = request.form['city']
             phone = request.form['phone']
+            if Seller.query.filter_by(email=email).first():
+                #email already used
+                return render_template("registeration.html")
+            if latitude == "" or longitude == "":
+                #location not entered
+                return render_template("registeration.html")
+            if email=="" or name == "" or password == "" or state=="" or city=="" or phone=="":
+                #details not entered
+                return render_template("registeration.html")
             byr = Buyer(email,name,password,latitude,longitude,state,city,phone)
             db.session.add(byr)
             db.session.commit()
@@ -84,6 +111,15 @@ def register():
             shop_name = request.form['shopName']
             shop_city = request.form['city']
             phone = request.form['phone']
+            if Buyer.query.filter_by(email=email).first():
+                #email already used
+                return render_template("registeration.html")
+            if latitude == "" or longitude == "":
+                #location not entered
+                return render_template("registeration.html")
+            if email=="" or name == "" or password == "" or shop_name == "" or shop_state == "" or shop_city=="" or phone=="":
+                #details not entered
+                return render_template("registeration.html")
             sllr = Seller(email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone)
             db.session.add(sllr)
             db.session.commit()
