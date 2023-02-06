@@ -1,5 +1,5 @@
-from flask import Flask, redirect,url_for,render_template,request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, redirect, session,url_for,render_template,request
+from flask_sqlalchemy import SQLAlchemy, query
 
 # set up server and database and config
 app = Flask(__name__)
@@ -50,10 +50,39 @@ class Seller(db.Model):
         self.shop_city = shop_city
         self.phone = phone
 
-@app.route("/home")
+@app.route("/search",methods=["GET", "POST"])
+def search():
+    return render_template('search.html',query=session['query'],username=session['name'])
+
+@app.route("/home",methods=["GET", "POST"])
 #home page route
 def home():
-    return render_template('index1.html')
+    if request.method == "POST":
+        session['query'] = request.form['query'];
+        return redirect(url_for('search'))
+    if 'name' in session:
+        return render_template('home.html',username=session['name'])
+    return redirect(url_for('login'))
+
+@app.route("/bakery",methods=["GET", "POST"])
+def bakery():
+    return render_template('bakery.html')
+
+@app.route("/gadgets",methods=["GET", "POST"])
+def gadgets():
+    return render_template('gadgets.html')
+
+@app.route("/household",methods=["GET", "POST"])
+def household():
+    return render_template('household.html')
+
+@app.route("/stationary",methods=["GET", "POST"])
+def stationary():
+    return render_template('stationary.html')
+
+@app.route("/profile",methods=["GET", "POST"])
+def profile():
+    return "profile of " + session['name']
 
 @app.route("/login",methods=["GET", "POST"])
 #login page route
@@ -63,11 +92,15 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         usr = Buyer.query.filter_by(email=email).first()
+        type = 'b'
         if not usr:
             usr = Seller.query.filter_by(email=email).first()
+            type = 's'
         if not usr:
             return redirect(url_for('register'))
         if(usr.password == password):
+            session["name"] = usr.name
+            session["email"] = usr.email
             return redirect(url_for('home'))
         else:
             return redirect(url_for('register'))
