@@ -22,8 +22,6 @@
     text-decoration: none;
     /* text-transform: capitalize; */
     transition: .2s linear;
-
-
 }
 
 
@@ -204,10 +202,26 @@ padding-top: 0.6em;
     font-size: 26pt;
 }
 
-.resultsTable{
+.resultsContainer {
     width: 100%;
 }
 
+.resultsTable{
+    width: 100%;
+    
+}
+.resultsTable tr{
+    border: 1px solid black;
+    height: 5em;
+}
+/* .resultsTable td { */
+/*   border: 1px solid black; */
+/*   border-collapse: collapse; */
+/* } */
+.resultsTable table {
+  border: 2px solid black;
+  /* border-collapse: collapse; */
+}
 #menu-bar {
     display: none;
 }

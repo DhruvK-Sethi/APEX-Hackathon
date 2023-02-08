@@ -39,6 +39,7 @@ class Seller(db.Model):
     shop_city = db.Column(db.String(100),nullable=False)
     shop_name = db.Column(db.String(100),nullable=False)
     phone = db.Column(db.String(100),nullable=False)
+    products = db.relationship('Product',backref='sellers',lazy=True)
     def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone):
         self.email = email
         self.name = name
@@ -50,9 +51,66 @@ class Seller(db.Model):
         self.shop_city = shop_city
         self.phone = phone
 
+class Product(db.Model):
+    __name__ = 'products'
+    id= db.Column(db.Integer,primary_key=True,unique=True,nullable=False)
+    shop = db.Column(db.String(100),db.ForeignKey('sellers.email'),nullable=False)
+    name = db.Column(db.String(100),nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    image = db.Column(db.String(100),nullable=False)
+    stock = db.Column(db.Integer)
+    score = db.Column(db.Integer)
+    def __init__(self,id,shop,name,price,stock):
+        self.id = id
+        self.shop = shop
+        self.name = name
+        self.price = price
+        self.stock = stock
+        self.score = 0
+        self.image = '/static/res/good.jpg'
+
 @app.route("/search",methods=["GET", "POST"])
 def search():
     return render_template('search.html',query=session['query'],username=session['name'])
+
+@app.route("/admin/update-stock",methods=["GET", "POST"])
+def update_stock():
+    if request.method == 'POST':
+        for key,value in request.form.items():
+            prd = Product.query.filter_by(id=key).first()
+            prd.stock = value
+            db.session.commit();
+    products_list = Seller.query.filter_by(email=session['email']).first().products
+    if products_list:
+        return render_template('update_stock.html',products_list=products_list)
+    return render_template('update_stock.html',products_list=[])
+
+@app.route("/admin/add-stock",methods=["GET", "POST"])
+def add_stock():
+    if request.method == "POST":
+        id = request.form['id']
+        shop = session['email']
+        name = request.form['name']
+        price = request.form['price']
+        stock = request.form['stock']
+        pdt = Product(id,shop,name,price,stock)
+        db.session.add(pdt)
+        db.session.commit()
+        return render_template('add_stock.html',message="Added successfully")
+    return render_template('add_stock.html')
+
+@app.route("/admin/view-stock")
+def view_stock():
+    products_list = Seller.query.filter_by(email=session['email']).first().products
+    if products_list:
+        return render_template('view_stock.html',products_list=products_list)
+    return render_template('view_stock.html',products_list=[])
+
+@app.route("/admin")
+def admin():
+    if session['type'] == 'b':
+        return redirect(url_for('home'))
+    return render_template('admin.html')
 
 @app.route("/home",methods=["GET", "POST"])
 #home page route
@@ -82,6 +140,8 @@ def stationary():
 
 @app.route("/profile",methods=["GET", "POST"])
 def profile():
+    if session['type'] == 's':
+        return redirect(url_for('admin'))
     return "profile of " + session['name']
 
 @app.route("/login",methods=["GET", "POST"])
@@ -101,6 +161,7 @@ def login():
         if(usr.password == password):
             session["name"] = usr.name
             session["email"] = usr.email
+            session["type"] = type
             return redirect(url_for('home'))
         else:
             return redirect(url_for('register'))
