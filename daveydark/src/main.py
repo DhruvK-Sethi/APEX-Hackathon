@@ -1,5 +1,7 @@
 from flask import Flask, redirect, session,url_for,render_template,request
 from flask_sqlalchemy import SQLAlchemy, query
+from geopy import distance
+from geopy.distance import geodesic
 
 # set up server and database and config
 app = Flask(__name__)
@@ -60,7 +62,8 @@ class Product(db.Model):
     image = db.Column(db.String(100),nullable=False)
     stock = db.Column(db.Integer)
     score = db.Column(db.Integer)
-    def __init__(self,id,shop,name,price,stock):
+    tags = db.Column(db.String(200))
+    def __init__(self,id,shop,name,price,stock,tags):
         self.id = id
         self.shop = shop
         self.name = name
@@ -68,10 +71,29 @@ class Product(db.Model):
         self.stock = stock
         self.score = 0
         self.image = '/static/res/good.jpg'
+        self.tags = tags
 
 @app.route("/search",methods=["GET", "POST"])
 def search():
-    return render_template('search.html',query=session['query'],username=session['name'])
+    products = Product.query.all()
+    results = []
+    words = session['query'].split(' ')
+    for product in products:
+        tags = product.tags
+        for word in words:
+            if word in tags.split(' '):
+                user = None
+                if session['type'] == 'b':
+                    user = Buyer.query.filter_by(email=session['email']).first()
+                else:
+                    user = Seller.query.filter_by(email=session['email']).first()
+                point1 = (user.latitude,user.longitude)
+                shop = Seller.query.filter_by(email=product.shop).first()
+                point2 = (shop.latitude,shop.longitude)
+                dist = geodesic(point1,point2).km
+                product.distance = dist
+                results.append(product)
+    return render_template('search.html',query=session['query'],username=session['name'],results=results)
 
 @app.route("/admin/update-stock",methods=["GET", "POST"])
 def update_stock():
@@ -93,7 +115,8 @@ def add_stock():
         name = request.form['name']
         price = request.form['price']
         stock = request.form['stock']
-        pdt = Product(id,shop,name,price,stock)
+        tags = request.form['tags']
+        pdt = Product(id,shop,name,price,stock,tags)
         db.session.add(pdt)
         db.session.commit()
         return render_template('add_stock.html',message="Added successfully")
@@ -176,8 +199,8 @@ def register():
             email = request.form['email']
             name = request.form['name']
             password = request.form['password']
-            latitude = request.form['latitude']
-            longitude = request.form['longitude']
+            latitude = request.form['latitude'].split('°')[0]
+            longitude = request.form['longitude'].split('°')[0]
             state = request.form['state']
             city = request.form['city']
             phone = request.form['phone']
@@ -199,8 +222,8 @@ def register():
             email = request.form['email']
             name = request.form['name']
             password = request.form['password']
-            latitude = request.form['latitude']
-            longitude = request.form['longitude']
+            latitude = request.form['latitude'].split('°')[0]
+            longitude = request.form['longitude'].split('°')[0]
             shop_state = request.form['state']
             shop_name = request.form['shopName']
             shop_city = request.form['city']
