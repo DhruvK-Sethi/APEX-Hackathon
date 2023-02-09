@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 
 # Load the .xlsx file into a pandas DataFrame
-dfSellers = pd.read_excel('sellers.xlsx')
+dfSellers = pd.read_excel('daveydark\src\Database.xlsx')
 # dfProducts = pd.read_excel('products.xlsx')
 
 # Connect to an SQLite database
