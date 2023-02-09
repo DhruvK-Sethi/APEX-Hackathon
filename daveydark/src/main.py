@@ -2,6 +2,7 @@ from flask import Flask, redirect, session,url_for,render_template,request
 from flask_sqlalchemy import SQLAlchemy, query
 from geopy import distance
 from geopy.distance import geodesic
+import random
 
 # set up server and database and config
 app = Flask(__name__)
@@ -132,13 +133,15 @@ def update_stock():
 @app.route("/admin/add-stock",methods=["GET", "POST"])
 def add_stock():
     if request.method == "POST":
-        id = request.form['id']
         shop = session['email']
         name = request.form['name']
         price = request.form['price']
         stock = request.form['stock']
         tags = request.form['tags']
-        pdt = Product(id,shop,name,price,stock,tags)
+        description = request.form['description']
+        identifier = random.randint(10000,99999)
+        id = random.randint(10000,99999)
+        pdt = Product(id,identifier,shop,name,price,stock,tags,description)
         db.session.add(pdt)
         db.session.commit()
         return render_template('add_stock.html',message="Added successfully")
@@ -249,6 +252,7 @@ def register():
             shop_state = request.form['state']
             shop_name = request.form['shopName']
             shop_city = request.form['city']
+            shop_category = request.form['category']
             phone = request.form['phone']
             if Buyer.query.filter_by(email=email).first():
                 #email already used
@@ -259,7 +263,7 @@ def register():
             if email=="" or name == "" or password == "" or shop_name == "" or shop_state == "" or shop_city=="" or phone=="":
                 #details not entered
                 return render_template("registeration.html")
-            sllr = Seller(email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone)
+            sllr = Seller(email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone,shop_category)
             db.session.add(sllr)
             db.session.commit()
             return redirect(url_for('login'))
