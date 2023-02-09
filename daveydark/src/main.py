@@ -114,7 +114,8 @@ def search():
 def product(shop,prod):
     product = Product.query.filter_by(shop=shop).first()
     product.distance = calcDistance(product)
-    return render_template('product.html',username=session['name'],product=product)
+    shp = Seller.query.filter_by(email=shop).first()
+    return render_template('product.html',username=session['name'],product=product,shp=shp)
 
 @app.route("/admin/update-stock",methods=["GET", "POST"])
 def update_stock():

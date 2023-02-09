@@ -26,8 +26,6 @@
      crossorigin=""></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js">
-    <script src="/static/index_product.js"></script>
-
 </head>
 
 <body>
@@ -72,9 +70,6 @@
             <div class="productImage">
                 <img src="https://via.placeholder.com/600">
             </div>
-            <div id="map-wrapper">
-                <img src="https://via.placeholder.com/200">
-            </div>
         </div>
 
 
@@ -96,6 +91,8 @@
         </div>
 
     </section>
+        <div id="map-wrapper">
+        </div>
     <footer class="footer" id="contact">
         <div class="box-container">
             <div class="mainBox">
@@ -150,9 +147,15 @@
 
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="index.js"></script>
-
-    <script src = "searchHistory.js"></script>
+    <script>
+        let map = L.map('map-wrapper').setView([{{ shp.latitude }}, {{ shp.longitude }}], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+        map.invalidateSize()
+        let marker = L.marker([{{ shp.latitude }}, {{ shp.longitude }}]).addTo(map);
+    </script>
 </body>
 
 </html>
