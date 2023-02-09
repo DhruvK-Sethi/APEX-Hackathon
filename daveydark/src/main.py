@@ -43,7 +43,7 @@ class Seller(db.Model):
     phone = db.Column(db.String(100),nullable=False)
     category = db.Column(db.String(100),nullable=False)
     products = db.relationship('Product',backref='sellers',lazy=True)
-    def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone):
+    def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone,category):
         self.email = email
         self.name = name
         self.password = password
@@ -53,6 +53,7 @@ class Seller(db.Model):
         self.shop_state = shop_state
         self.shop_city = shop_city
         self.phone = phone
+        self.category = category
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -66,7 +67,7 @@ class Product(db.Model):
     score = db.Column(db.Integer)
     tags = db.Column(db.String(200))
     description = db.Column(db.String(512))
-    def __init__(self,id,shop,name,price,stock,tags):
+    def __init__(self,id,identifier,shop,name,price,stock,tags,description):
         self.id = id
         self.shop = shop
         self.name = name
@@ -75,6 +76,8 @@ class Product(db.Model):
         self.score = 0
         self.image = '/static/res/good.jpg'
         self.tags = tags
+        self.indentifier = identifier
+        self.description = description
 
 class Score(db.Model):
     __tablename__ = 'scores'
