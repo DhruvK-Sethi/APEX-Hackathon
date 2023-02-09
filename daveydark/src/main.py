@@ -78,7 +78,7 @@ class Product(db.Model):
         self.stock = stock
         self.image = '/static/res/good.jpg'
         self.tags = tags
-        self.indentifier = identifier
+        self.identifier = identifier
         self.description = description
         self.stock_over_time = ''
 
