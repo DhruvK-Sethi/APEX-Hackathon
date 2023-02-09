@@ -59,7 +59,7 @@ class Seller(db.Model):
 class Product(db.Model):
     __tablename__ = 'products'
     id= db.Column(db.Integer,primary_key=True,unique=True,nullable=False)
-    indentifier= db.Column(db.Integer,nullable=False)
+    identifier= db.Column(db.Integer,nullable=False)
     shop = db.Column(db.String(100),db.ForeignKey('sellers.email'),nullable=False)
     name = db.Column(db.String(100),nullable=False)
     price = db.Column(db.Float, nullable=False)
