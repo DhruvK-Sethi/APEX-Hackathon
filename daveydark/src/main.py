@@ -65,7 +65,6 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     image = db.Column(db.String(100),nullable=False)
     stock = db.Column(db.Integer)
-    score = db.Column(db.Integer)
     tags = db.Column(db.String(200))
     description = db.Column(db.String(512))
     def __init__(self,id,identifier,shop,name,price,stock,tags,description):
@@ -74,7 +73,6 @@ class Product(db.Model):
         self.name = name
         self.price = price
         self.stock = stock
-        self.score = 0
         self.image = '/static/res/good.jpg'
         self.tags = tags
         self.indentifier = identifier
