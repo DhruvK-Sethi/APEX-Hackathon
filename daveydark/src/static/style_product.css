@@ -168,7 +168,7 @@ padding-top: 0.6em;
     flex-direction: column;
 
 }
-.map-wrapper{
+#map-wrapper{
     margin-top:1em;
 }
 .footer {

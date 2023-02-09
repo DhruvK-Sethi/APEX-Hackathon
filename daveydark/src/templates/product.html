@@ -17,8 +17,16 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js">
-    <script src="index.js"></script>
+    <script src="/static/index_product.js"></script>
 
 </head>
 
@@ -64,14 +72,9 @@
             <div class="productImage">
                 <img src="https://via.placeholder.com/600">
             </div>
-            <div class="map-wrapper">
+            <div id="map-wrapper">
                 <img src="https://via.placeholder.com/200">
-
             </div>
-
-
-
-
         </div>
 
 
@@ -88,18 +91,11 @@
                 <button id = "Whatsapp">
                     Whatsapp
                 </button>
-
-
             </div>
             <div class="contact-now"></div>
-
         </div>
 
-
-
     </section>
-
-
     <footer class="footer" id="contact">
         <div class="box-container">
             <div class="mainBox">
