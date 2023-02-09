@@ -67,6 +67,7 @@ class Product(db.Model):
     stock = db.Column(db.Integer)
     tags = db.Column(db.String(200))
     description = db.Column(db.String(512))
+    stock_over_time = db.Column(db.String(256),nullable=False)
     def __init__(self,id,identifier,shop,name,price,stock,tags,description):
         self.id = id
         self.shop = shop
@@ -77,16 +78,17 @@ class Product(db.Model):
         self.tags = tags
         self.indentifier = identifier
         self.description = description
+        self.stock_over_time = ''
 
 class Score(db.Model):
     __tablename__ = 'scores'
     id = db.Column(db.Integer,primary_key=True,unique=True,nullable=True)
     score = db.Column(db.Integer,nullable=True)
     score_over_time = db.Column(db.String(256),nullable=False)
-    def __init__(self,id,score,score_over_time):
+    def __init__(self,id,score):
         self.id = id
         self.score = score
-        self.score_over_time = score_over_time
+        self.score_over_time = ''
 
 def calcDistance(product):
     user = None
