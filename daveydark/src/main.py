@@ -21,6 +21,7 @@ class Buyer(db.Model):
     state = db.Column(db.String(100),nullable=False)
     city = db.Column(db.String(100),nullable=False)
     phone = db.Column(db.String(100),nullable=False)
+    wishlist = db.Column(db.String(2048))
     def __init__(self,email,name,password,latitude,longitude,state,city,phone):
         self.email = email
         self.name = name
@@ -30,6 +31,7 @@ class Buyer(db.Model):
         self.longitude = longitude
         self.state = state
         self.city = city
+        self.wishlist = ''
 
 class Seller(db.Model):
     __tablename__ = 'sellers'
