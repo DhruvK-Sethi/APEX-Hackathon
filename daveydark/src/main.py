@@ -41,6 +41,7 @@ class Seller(db.Model):
     shop_city = db.Column(db.String(100),nullable=False)
     shop_name = db.Column(db.String(100),nullable=False)
     phone = db.Column(db.String(100),nullable=False)
+    category = db.Column(db.String(100),nullable=False)
     products = db.relationship('Product',backref='sellers',lazy=True)
     def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone):
         self.email = email
@@ -54,8 +55,9 @@ class Seller(db.Model):
         self.phone = phone
 
 class Product(db.Model):
-    __name__ = 'products'
+    __tablename__ = 'products'
     id= db.Column(db.Integer,primary_key=True,unique=True,nullable=False)
+    indentifier= db.Column(db.Integer,nullable=False)
     shop = db.Column(db.String(100),db.ForeignKey('sellers.email'),nullable=False)
     name = db.Column(db.String(100),nullable=False)
     price = db.Column(db.Float, nullable=False)
@@ -63,6 +65,7 @@ class Product(db.Model):
     stock = db.Column(db.Integer)
     score = db.Column(db.Integer)
     tags = db.Column(db.String(200))
+    description = db.Column(db.String(512))
     def __init__(self,id,shop,name,price,stock,tags):
         self.id = id
         self.shop = shop
@@ -73,6 +76,25 @@ class Product(db.Model):
         self.image = '/static/res/good.jpg'
         self.tags = tags
 
+class Score(db.Model):
+    __tablename__ = 'scores'
+    id = db.Column(db.Integer,primary_key=True,unique=True,nullable=True)
+    score = db.Column(db.Integer,nullable=True)
+    def __init__(self,id,score):
+        self.id = id
+        self.score = score
+
+def calcDistance(product):
+    user = None
+    if session['type'] == 'b':
+        user = Buyer.query.filter_by(email=session['email']).first()
+    else:
+        user = Seller.query.filter_by(email=session['email']).first()
+    point1 = (user.latitude,user.longitude)
+    shop = Seller.query.filter_by(email=product.shop).first()
+    point2 = (shop.latitude,shop.longitude)
+    return geodesic(point1,point2).km
+
 @app.route("/search",methods=["GET", "POST"])
 def search():
     products = Product.query.all()
@@ -82,18 +104,15 @@ def search():
         tags = product.tags
         for word in words:
             if word in tags.split(' '):
-                user = None
-                if session['type'] == 'b':
-                    user = Buyer.query.filter_by(email=session['email']).first()
-                else:
-                    user = Seller.query.filter_by(email=session['email']).first()
-                point1 = (user.latitude,user.longitude)
-                shop = Seller.query.filter_by(email=product.shop).first()
-                point2 = (shop.latitude,shop.longitude)
-                dist = geodesic(point1,point2).km
-                product.distance = dist
+                product.distance = calcDistance(product)
                 results.append(product)
     return render_template('search.html',query=session['query'],username=session['name'],results=results)
+
+@app.route("/product/<shop>/<prod>")
+def product(shop,prod):
+    product = Product.query.filter_by(shop=shop).first()
+    product.distance = calcDistance(product)
+    return render_template('product.html',username=session['name'],product=product)
 
 @app.route("/admin/update-stock",methods=["GET", "POST"])
 def update_stock():
