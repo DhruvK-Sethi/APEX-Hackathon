@@ -5,6 +5,8 @@ from geopy.distance import geodesic
 from decimal import Decimal
 import random
 
+from sqlalchemy.util import NoneType
+
 # set up server and database and config
 app = Flask(__name__)
 app.secret_key = "siteee" #security reasons, can be any random word
@@ -22,7 +24,7 @@ class Buyer(db.Model):
     state = db.Column(db.String(100),nullable=False)
     city = db.Column(db.String(100),nullable=False)
     phone = db.Column(db.String(100),nullable=False)
-    wishlist = db.Column(db.String(2048))
+    wishlist = db.Column(db.String(2048),nullable=False)
     def __init__(self,email,name,password,latitude,longitude,state,city,phone):
         self.email = email
         self.name = name
@@ -32,7 +34,7 @@ class Buyer(db.Model):
         self.longitude = longitude
         self.state = state
         self.city = city
-        self.wishlist = ''
+        self.wishlist = ' '
 
 class Seller(db.Model):
     __tablename__ = 'sellers'
@@ -119,24 +121,52 @@ def search():
                 score.score = Decimal(score.score) + Decimal('0.1')
                 strList = score.score_over_time.split(' ')
                 strList.pop(-1)
-                score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(str(score.score))
+                score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
                 db.session.commit()
                 product.distance = calcDistance(product)
                 results.append(product)
     return render_template('search.html',query=session['query'],username=session['name'],results=results)
 
-@app.route("/product/<shop>/<prod>")
+@app.route("/wishlist")
+def wishlist():
+    user = None
+    if session['type'] == 'b':
+        user = Buyer.query.filter_by(email=session['email']).first()
+    else:
+        user = Seller.query.filter_by(email=session['email']).first()
+    return render_template('wishlist.html',wishlist=user.wishlist)
+
+@app.route("/product/<shop>/<prod>",methods=["GET", "POST"])
 def product(shop,prod):
+    message = ''
     product = Product.query.filter_by(id=prod).first()
+    if request.method == "POST":
+        user = None
+        if session['type'] == 'b':
+            user = Buyer.query.filter_by(email=session['email']).first()
+        else:
+            user = Seller.query.filter_by(email=session['email']).first()
+        if not prod in user.wishlist.split(' '):
+            user.wishlist += prod + " "
+            db.session.commit()
+            message = "Added to Wishlist"
+            score = Score.query.filter_by(id=product.identifier).first()
+            score.score = Decimal(score.score) + Decimal('20')
+            strList = score.score_over_time.split(' ')
+            strList.pop(-1)
+            score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
+            db.session.commit()
+        else:
+            message = 'Already in wishlist'
     score = Score.query.filter_by(id=product.identifier).first()
     score.score = Decimal(score.score) + Decimal('1')
     strList = score.score_over_time.split(' ')
     strList.pop(-1)
-    score.score_over_time = " ".join(strList) + "{:.1f}".format(str(score.score))
+    score.score_over_time = " ".join(strList) + "{:.1f}".format(score.score)
     db.session.commit()
     product.distance = calcDistance(product)
     shp = Seller.query.filter_by(email=shop).first()
-    return render_template('product.html',username=session['name'],product=product,shp=shp)
+    return render_template('product.html',username=session['name'],product=product,shp=shp,message=message)
 
 @app.route("/admin/update-stock",methods=["GET", "POST"])
 def update_stock():

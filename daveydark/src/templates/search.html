@@ -73,7 +73,7 @@
                 <th>Price</th>
             </tr>
             {% for result in results %}
-            <tr class="resultsRow" onclick="window.location.href = '{{ url_for('product',shop=result.shop,prod=result.id) }}'">
+            <tr class="resultsRow" onclick="window.location.href = '{{ url_for('product',shop=result.shop,prod=result.id,message='') }}'">
                 <td>{{ "{:.1f}".format(result.distance) }}km</td>
                 <td>Image</td>
                 <td>{{ result.shop }}</td>
