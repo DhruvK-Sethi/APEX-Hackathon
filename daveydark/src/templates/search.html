@@ -74,7 +74,7 @@
             </tr>
             {% for result in results %}
             <tr class="resultsRow" onclick="window.location.href = '{{ url_for('product',shop=result.shop,prod=result.id) }}'">
-                <td>{{ result.distance }}</td>
+                <td>{{ "{:.1f}".format(result.distance) }}</td>
                 <td>Image</td>
                 <td>{{ result.shop }}</td>
                 <td>{{ result.name }}</td>

@@ -8,8 +8,8 @@ dfscores = pd.read_excel('daveydark/src/Prediction Db.xlsx')
 # dfProducts = pd.read_excel('products.xlsx')
 
 # Connect to an SQLite database
-# conn = sqlite3.connect('instance/db.sqlite3')
-conn = sqlite3.connect('../var/main-instance/db.sqlite3')
+conn = sqlite3.connect('instance/db.sqlite3')
+# conn = sqlite3.connect('../var/main-instance/db.sqlite3')
 cursor = conn.cursor()
 table_names = ['sellers','products']
 for table_name in table_names:
