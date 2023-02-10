@@ -19,11 +19,11 @@ conn.commit()
 
 
 # Write the DataFrame to the database
-dfProducts.to_sql('products', conn, if_exists='replace', index=False)
-dfSellers.to_sql('sellers', conn, if_exists='replace', index=False)
-dfscores.to_sql('scores', conn, if_exists='replace', index=False)
-dfbuyers.to_sql('buyers', conn, if_exists='replace', index=False)
-# dfProducts.to_sql('products', conn, if_exists='replace', index=False)
+dfProducts.to_sql('products', conn, if_exists='append', index=False)
+dfSellers.to_sql('sellers', conn, if_exists='append', index=False)
+dfscores.to_sql('scores', conn, if_exists='append', index=False)
+dfbuyers.to_sql('buyers', conn, if_exists='append', index=False)
+# dfProducts.to_sql('products', conn, if_exists='append', index=False)
 
 # Close the connection to the database
 conn.close()
