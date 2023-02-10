@@ -116,7 +116,6 @@ def search():
         for word in words:
             if word in tags.split(' '):
                 score = Score.query.filter_by(id=product.identifier).first()
-                score.score += 0.1;
                 score.score = Decimal(score.score) + Decimal('0.1')
                 db.session.commit()
                 product.distance = calcDistance(product)
@@ -125,7 +124,10 @@ def search():
 
 @app.route("/product/<shop>/<prod>")
 def product(shop,prod):
-    product = Product.query.filter_by(shop=shop).first()
+    product = Product.query.filter_by(id=prod).first()
+    score = Score.query.filter_by(id=product.identifier).first()
+    score.score = Decimal(score.score) + Decimal('1')
+    db.session.commit()
     product.distance = calcDistance(product)
     shp = Seller.query.filter_by(email=shop).first()
     return render_template('product.html',username=session['name'],product=product,shp=shp)
