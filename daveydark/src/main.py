@@ -2,6 +2,7 @@ from flask import Flask, redirect, session,url_for,render_template,request
 from flask_sqlalchemy import SQLAlchemy, query
 from geopy import distance
 from geopy.distance import geodesic
+from decimal import Decimal
 import random
 
 # set up server and database and config
@@ -114,7 +115,9 @@ def search():
         tags = product.tags
         for word in words:
             if word in tags.split(' '):
-                product.score += 0.1;
+                score = Score.query.filter_by(id=product.identifier).first()
+                score.score += 0.1;
+                score.score = Decimal(score.score) + Decimal('0.1')
                 db.session.commit()
                 product.distance = calcDistance(product)
                 results.append(product)
