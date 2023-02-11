@@ -609,10 +609,9 @@ body {
     }
 }
 
-
-
-
-
+.graphContainer{
+    width: 100%;
+}
 
 @media screen and (max-width: 576px) {
     #content nav form .form-input input {
