@@ -152,10 +152,19 @@ def graphs():
     id_list = []
     for product in products:
         id_list.append(product.identifier)
-        results = session.query(Score).filter(Score.id.in_(id_list)).order_by(Score.score).all()
-
+        results = db.session.query(Score).filter(Score.id.in_(id_list)).order_by(Score.score).all()
     datas = []
-    return render_template('graphs.html',datas=datas)
+    labels = []
+    i=0
+    for result in results:
+        if(i>=10):
+            break
+        stonks = result.score_over_time.split(' ')
+        int_stonks = list(map(int,stonks))
+        datas.append(int_stonks)
+        labels.append(Product.query.filter_by(identifier=result.id).first().name)
+        i+=1
+    return render_template('graphs.html',datas=datas,labels=labels)
 
 @app.route("/shop/<shp>",methods=["GET", "POST"])
 def shop(shp):

@@ -24,13 +24,18 @@
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels:[
+                    {% for i in range(datas|length) %}
+                    {{i+1}},
+                    {% endfor %}
+                ],
                 datasets: [
-                    {% for data in datas %}
+                    {% for i in range(datas|length) %}
                     {
                     type: 'line',
-                    label: '# of Votes',
-                    data: {{ data }},
+                            label: '{{ labels[i] }}',
+                    data: {{ datas[i] }},
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
