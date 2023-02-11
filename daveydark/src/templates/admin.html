@@ -59,6 +59,13 @@
             <span class="text">Update Stock</span>
           </a>
         </li>
+        <li>
+          <a href="{{url_for('request_item')}}">
+            <!-- <a href="request_item.html"> -->
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <span class="text">Request Items</span>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- SIDEBAR -->
@@ -129,9 +136,9 @@
               <i class="bx bx-search"></i>
               <i class="bx bx-filter"></i>
             </div>
-              <div class="graphContainer">
-                <canvas id="myChart"></canvas>
-              </div>
+            <div class="graphContainer">
+              <canvas id="myChart"></canvas>
+            </div>
           </div>
         </div>
       </main>
@@ -144,46 +151,46 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
     <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            data: {
-                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                labels:[
-                    {% for i in range(datas|length) %}
-                    {{i+1}},
-                    {% endfor %}
-                ],
-                datasets: [
-                    {% for i in range(datas|length) %}
-                    {
-                    type: 'line',
-                            label: '{{ labels[i] }}',
-                    data: {{ datas[i] }},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                    },
-                    {% endfor %}
-                ]
-            },
-            options: {
-                responsive: true,
-            }
-        });
-        </script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          data: {
+              //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              labels:[
+                  {% for i in range(datas|length) %}
+                  {{i+1}},
+                  {% endfor %}
+              ],
+              datasets: [
+                  {% for i in range(datas|length) %}
+                  {
+                  type: 'line',
+                          label: '{{ labels[i] }}',
+                  data: {{ datas[i] }},
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+                  },
+                  {% endfor %}
+              ]
+          },
+          options: {
+              responsive: true,
+          }
+      });
+    </script>
   </body>
 </html>
