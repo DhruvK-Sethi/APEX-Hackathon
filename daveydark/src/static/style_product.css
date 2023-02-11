@@ -175,6 +175,10 @@ padding-top: 0.6em;
     flex-direction: column;
 
 }
+#mapWrapper{
+    width: 600px;
+    height: 600px;
+}
 #map-wrapper{
     margin: 0px auto;
     width:80vw;

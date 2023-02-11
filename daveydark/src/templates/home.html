@@ -162,20 +162,41 @@
         map.invalidateSize()
         let markers = [];
         {%  for shop in shops %}
-            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}]).addTo(map));
-            var customIcon = L.icon({
-              iconUrl: 'path/to/icon.png',
-              iconSize: [38, 95],
-            });
+        var bakery_icon = L.icon({
+          iconUrl: "static/res/bakery_icon.png",
+          iconSize: [32, 32],
+        });
+        var stationary_icon = L.icon({
+          iconUrl: "static/res/stationary_icon.png",
+          iconSize: [32, 32],
+        });
+        var gadgets_icon = L.icon({
+          iconUrl: "static/res/gadgets_icon.png",
+          iconSize: [32, 32],
+        });
+        var household_icon = L.icon({
+          iconUrl: "static/res/household_icon.png",
+          iconSize: [32, 32],
+        });
         if ("{{ shop.category }}" == "Bakery"){
-            marker._icon.style.color = 'red';
+            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}],{icon:bakery_icon}).addTo(map));
         } else if("{{ shop.category }}" == "Stationary") {
-            marker._icon.style.color = 'blue';
+            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}],{icon:stationary_icon}).addTo(map));
         } else if("{{ shop.category }}" == "Household") {
-            marker._icon.style.backgroundColor = 'pink';
+            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}],{icon:household_icon}).addTo(map));
         } else {
-            marker._icon.style.backgroundColor = 'orange';
+            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}],{icon:gadgets_icon}).addTo(map));
         }
+        marker.on('click', function() {
+            window.location.href = '{{ url_for('shop',shp=shop.email) }}'
+        });
+        marker.bindPopup("{{ shop.name }}",{autoPan: true, autoPanPadding: [5, 5]});
+        marker.on('mouseover', function() {
+            this.openPopup();
+        });
+        marker.on('mouseout', function() {
+            this.closePopup();
+        });
         markers.push(marker);
         {% endfor %}
     </script>
