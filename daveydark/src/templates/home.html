@@ -188,7 +188,14 @@
             marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}],{icon:gadgets_icon}).addTo(map));
         }
         marker.on('click', function() {
-            window.location.href = '{{ url_for('shop') }}'
+            window.location.href = '{{ url_for('shop',shp=shop.email) }}'
+        });
+        marker.bindPopup("{{ shop.name }}",{autoPan: true, autoPanPadding: [5, 5]});
+        marker.on('mouseover', function() {
+            this.openPopup();
+        });
+        marker.on('mouseout', function() {
+            this.closePopup();
         });
         markers.push(marker);
         {% endfor %}

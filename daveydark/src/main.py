@@ -141,6 +141,11 @@ def wishlist():
         user = Seller.query.filter_by(email=session['email']).first()
     return render_template('wishlist.html',wishlist=user.wishlist)
 
+@app.route("/shop/<shp>",methods=["GET", "POST"])
+def shop(shp):
+    shop = Seller.query.filter_by(email=shp).first()
+    products = Product.query.filter_by(shop=shop.email)
+    return render_template('shop.html',username=session['name'],shop=shop,products=products)
 @app.route("/product/<shop>/<prod>",methods=["GET", "POST"])
 def product(shop,prod):
     message = ''

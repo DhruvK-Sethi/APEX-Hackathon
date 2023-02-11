@@ -65,10 +65,9 @@
     <!--Header Ends here-->
 
 
-    {{ message }}
     <section class="product">
         <div class="productImages">
-            <div id="map-wrapper" class="productImage">
+            <div id="mapWrapper" class="productImage">
             </div>
         </div>
 
@@ -77,7 +76,7 @@
             <div class="productDescription">
                 <main-heading id = "productName">{{ shop.shop_name }}</main-heading>
                 <main-heading >{{ shop.category }}</main-heading>
-                <product-description>{{ shop.city }},{{ shop.state }}</product-description>
+                <product-description>{{ shop.shop_city }},{{ shop.shop_state }}</product-description>
 
                 <br>
                 <heading>Email</heading>
@@ -88,8 +87,13 @@
                 <form method="post" action="#">
                 <button type="submit">Wishlist Now</button>
                 </form>
-                <button id = "Whatsapp" onclick="window.location.href = 'https://wa.me/+91' + {{ shp.phone }}"> Whatsapp </button>
-                <button id = "Whatsapp" onclick="window.location.href = 'https://maps.google.com/?q={{ shp.latitude }},{{ shp.longitude }}' + {{ shp.phone }}"> View On Maps </button>
+                <button id = "Whatsapp" onclick="window.location.href = 'https://wa.me/+91' + {{ shop.phone }}"> Whatsapp </button>
+                <button id = "Whatsapp" onclick="window.location.href = 'https://maps.google.com/?q={{ shop.latitude }},{{ shop.longitude }}' + {{ shop.phone }}"> View On Maps </button>
+                <h1>Products:</h1>
+                {% for product in products %}
+                {{ product.name }}
+                <br>
+                {% endfor %}
             </div>
             <div class="contact-now"></div>
         </div>
@@ -150,13 +154,13 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-        let map = L.map('map-wrapper').setView([{{ shp.latitude }}, {{ shp.longitude }}], 13);
+        let map = L.map('mapWrapper').setView([{{ shop.latitude }}, {{ shop.longitude }}], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
         map.invalidateSize()
-        let marker = L.marker([{{ shp.latitude }}, {{ shp.longitude }}]).addTo(map);
+        let marker = L.marker([{{ shop.latitude }}, {{ shop.longitude }}]).addTo(map);
     </script>
 </body>
 
