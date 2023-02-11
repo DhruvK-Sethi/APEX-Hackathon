@@ -331,6 +331,10 @@ def login():
             return redirect(url_for('register'))
     return render_template("login.html")
 
+@app.route("/request_item",methods=["GET", "POST"])
+def request_item():
+    return render_template('request_item.html')
+
 @app.route("/register",methods=["GET", "POST"])
 #register page route
 def register():
