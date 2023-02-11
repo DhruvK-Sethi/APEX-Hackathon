@@ -54,6 +54,8 @@ class Seller(db.Model):
     category = db.Column(db.String(100),nullable=False)
     products = db.relationship('Product',backref='sellers',lazy=True)
     notification = db.Column(db.String(4096))
+    item_request = db.Column(db.String(4096))
+    views = db.Column(db.Integer)
     def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone,category):
         self.email = email
         self.name = name
@@ -66,6 +68,8 @@ class Seller(db.Model):
         self.phone = phone
         self.category = category
         self.notification = "Welcome to the Website |"
+        self.item_request = ""
+        self.views = 0
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -268,7 +272,7 @@ def admin():
         i+=1
     if session['type'] == 'b':
         return redirect(url_for('home'))
-    return render_template('admin.html',datas=datas,labels=labels)
+    return render_template('admin.html',datas=datas,labels=labels,shop=shop)
 
 @app.route("/home",methods=["GET", "POST"])
 #home page route
