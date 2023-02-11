@@ -1,0 +1,11 @@
+:root{
+    --black: #3f3646;
+    --brand-orange: #f5a16c;
+    --brand-blue: #6c6cf5;
+    --level-0-white: rgb(225, 225, 225);
+    --level-1-white: rgb(235, 235, 235);
+    --level-2-white: rgb(245, 245, 245);
+    --success: rgb(190, 244, 188);
+    --success-clicked: rgb(100, 199, 97);
+    --shadow: 0 0 5px rgba(87, 87, 87, 0.272);
+}

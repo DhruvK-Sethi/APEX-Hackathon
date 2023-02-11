@@ -1,0 +1,107 @@
+
+
+body{background-color: var(--level-0-white);}
+
+.nav-bar{
+    z-index: 5;
+    position: sticky;
+    top: 0;
+    margin: 0 auto;
+    margin-top: 0.5em;
+    background-color: var(--level-1-white);
+
+    width: 98%;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 0 0.5em;
+    height: 5em;
+    box-shadow: var(--shadow);
+}
+.brand-name{
+    margin-left: 0.5em;
+}
+.brand-name name{
+    font-size: 2em;
+    font-weight: 700;
+    font-family: 'Lobster',sans-serif;
+    color: rgb(60, 60, 60);
+}
+.brand-name l{
+    color:var(--brand-blue);
+}
+
+
+.brand-name b{
+    color:var(--brand-orange)
+}
+.user-greet{
+    display: flex;
+    gap: 1vw;
+
+}
+
+.user-greet {
+    display: flex;
+    align-items: center;
+    /* margin-top: 0.5em; */
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--black);
+    width: 15em;
+    height: 4em;
+    text-align: center;
+    justify-content: center;
+    padding: 0.5em 0em;
+    border-radius: 0.25em;
+    transition: border 0.25s ease-in-out, box-shadow 0.3s ease-in-out,background-color linear 0.05s;
+
+
+}
+.user-greet img{
+    border-radius: 2em;
+}
+@media screen and (max-width: 530px) {
+
+.nav-bar{
+    flex-direction: column;
+    justify-items:end;
+    height: 9em;
+    align-items: center;
+    padding: 0.5em;
+    overflow: hidden;
+}
+.user-greet{
+    justify-content: space-between;
+    margin: auto ;
+    flex-direction: row-reverse;
+    width: 20em;
+}
+.user-greet text{
+width: 20em;
+
+}
+.brand-name{
+    text-align: center;
+    width: 150%;
+    border-bottom:2px solid var(--level-0-white);
+}
+.user-greet a:hover{
+    border:0.5px solid var(--black);
+    box-shadow: none;
+    border:0.5px solid var(--brand-blue);
+
+}
+
+.user-greet a:active{
+    transition: background-color linear 0.05s,color linear 0.05s;
+   background-color: var(--level-2-white);
+
+   color: var(--brand-blue);
+
+
+}
+
+
+
+}
