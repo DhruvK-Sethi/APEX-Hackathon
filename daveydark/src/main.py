@@ -120,6 +120,14 @@ def calcDistance(product):
     point2 = (shop.latitude,shop.longitude)
     return geodesic(point1,point2).km
 
+@app.route("/notifications")
+def notifications():
+    ntfs = Seller.query.filter_by(email=session['email']).first().notification
+    notifs = []
+    for notif in ntfs.split('|'):
+        notifs.append(notif)
+    return render_template('notifications.html',notifications=notifs)
+
 @app.route("/search",methods=["GET", "POST"])
 def search():
     products = Product.query.all()
@@ -181,23 +189,28 @@ def product(shop,prod):
     message = ''
     product = Product.query.filter_by(id=prod).first()
     if request.method == "POST":
-        user = None
-        if session['type'] == 'b':
-            user = Buyer.query.filter_by(email=session['email']).first()
+        if request.form['id'] == 'request':
+            shp = Seller.query.filter_by(email=shop).first()
+            shp.notification += "|" + "New request for " + product.name
+            message = 'Request sent'
         else:
-            user = Seller.query.filter_by(email=session['email']).first()
-        if not prod in user.wishlist.split(' '):
-            user.wishlist += prod + " "
-            db.session.commit()
-            message = "Added to Wishlist"
-            score = Score.query.filter_by(id=product.identifier).first()
-            score.score = score.score + 5
-            strList = score.score_over_time.split(' ')
-            strList.pop(-1)
-            score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
-            db.session.commit()
-        else:
-            message = 'Already in wishlist'
+            user = None
+            if session['type'] == 'b':
+                user = Buyer.query.filter_by(email=session['email']).first()
+            else:
+                user = Seller.query.filter_by(email=session['email']).first()
+            if not prod in user.wishlist.split(' '):
+                user.wishlist += prod + " "
+                db.session.commit()
+                message = "Added to Wishlist"
+                score = Score.query.filter_by(id=product.identifier).first()
+                score.score = score.score + 5
+                strList = score.score_over_time.split(' ')
+                strList.pop(-1)
+                score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
+                db.session.commit()
+            else:
+                message = 'Already in wishlist'
     score = Score.query.filter_by(id=product.identifier).first()
     score.score += 1
     strList = score.score_over_time.split(' ')
@@ -434,6 +447,7 @@ if __name__ == "__main__":
     # Uncomment when we start using db
     with app.app_context():
         db.create_all()
+        print("----------------- DATABASE CREATED -----------------")
 
     # launch app in production or debug mode
     # Debug mode updates live

@@ -83,7 +83,16 @@
                 <value>{{ product.price }}</value>
                 <heading>Distance</heading>
                 <value>{{ product.distance }}km</value>
+                {% if product.stock > 0 %}
+                <p>In Stock</p>
+                {% else %}
+                <form action="#" method="post">
+                <input hidden name="id" value="request"/>
+                <p>Out Of Stock - <button type='submit' >Request</button></p>
+                </form>
+                {% endif %}
                 <form method="post" action="#">
+                <input hidden name="id" value="wishlist"/>
                 <button type="submit">Wishlist Now</button>
                 </form>
                 <button id = "Whatsapp" onclick="window.location.href = 'https://wa.me/+91' + {{ shp.phone }}"> Whatsapp </button>
