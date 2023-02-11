@@ -76,6 +76,7 @@ class Product(db.Model):
     image = db.Column(db.String(100),nullable=False)
     stock = db.Column(db.Integer)
     tags = db.Column(db.String(200))
+    category = db.Column(db.String(200))
     description = db.Column(db.String(512))
     stock_over_time = db.Column(db.String(256),nullable=False)
     review = db.Column(db.Float,nullable=False)
@@ -87,6 +88,7 @@ class Product(db.Model):
         self.stock = stock
         self.image = image
         self.tags = tags
+        self.category = tags.split(' ')[0]
         self.identifier = identifier
         self.description = description
         self.stock_over_time = ''
@@ -140,6 +142,20 @@ def wishlist():
     else:
         user = Seller.query.filter_by(email=session['email']).first()
     return render_template('wishlist.html',wishlist=user.wishlist)
+
+@app.route("/graphs")
+def graphs():
+    if session['type'] != 's':
+        return redirect(url_for('home'))
+    shop = Seller.query.filter_by(email=session['email']).first()
+    products = Product.query.filter_by(category=shop.category)
+    id_list = []
+    for product in products:
+        id_list.append(product.identifier)
+        results = session.query(Score).filter(Score.id.in_(id_list)).order_by(Score.score).all()
+
+    datas = []
+    return render_template('graphs.html',datas=datas)
 
 @app.route("/shop/<shp>",methods=["GET", "POST"])
 def shop(shp):
