@@ -160,6 +160,13 @@ padding-top: 0.6em;
     flex-direction: column;
     align-items: center;
 }
+.productImage{
+    width: 600px;
+    height: 600px;
+}
+.imageimage{
+    width: 600px;
+}
 .productDetail{
     margin: 2em;
 }

@@ -69,7 +69,7 @@
     <section class="product">
         <div class="productImages">
             <div class="productImage">
-                <img src="https://via.placeholder.com/600">
+                <img src="{{ product.image }}" class='imageimage'>
             </div>
         </div>
 
@@ -86,9 +86,8 @@
                 <form method="post" action="#">
                 <button type="submit">Wishlist Now</button>
                 </form>
-                <button id = "Whatsapp">
-                    Whatsapp
-                </button>
+                <button id = "Whatsapp" onclick="window.location.href = 'https://wa.me/+91' + {{ shp.phone }}"> Whatsapp </button>
+                <button id = "Whatsapp" onclick="window.location.href = 'https://maps.google.com/?q={{ shp.latitude }},{{ shp.longitude }}' + {{ shp.phone }}"> View On Maps </button>
             </div>
             <div class="contact-now"></div>
         </div>

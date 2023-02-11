@@ -4,6 +4,7 @@ from geopy import distance
 from geopy.distance import geodesic
 from decimal import Decimal
 import random
+from numpy import require
 
 from sqlalchemy.util import NoneType
 
@@ -74,13 +75,13 @@ class Product(db.Model):
     description = db.Column(db.String(512))
     stock_over_time = db.Column(db.String(256),nullable=False)
     review = db.Column(db.Float,nullable=False)
-    def __init__(self,id,identifier,shop,name,price,stock,tags,description):
+    def __init__(self,id,identifier,shop,name,price,stock,tags,description,image):
         self.id = id
         self.shop = shop
         self.name = name
         self.price = price
         self.stock = stock
-        self.image = '/static/res/good.jpg'
+        self.image = image
         self.tags = tags
         self.identifier = identifier
         self.description = description
@@ -92,9 +93,9 @@ class Score(db.Model):
     id = db.Column(db.Integer,primary_key=True,unique=True,nullable=True)
     score = db.Column(db.Float,nullable=True)
     score_over_time = db.Column(db.String(256),nullable=False)
-    def __init__(self,id,score):
+    def __init__(self,id):
         self.id = id
-        self.score = score
+        self.score = 0
         self.score_over_time = ''
 
 def calcDistance(product):
@@ -191,7 +192,12 @@ def add_stock():
         description = request.form['description']
         identifier = random.randint(10000,99999)
         id = random.randint(10000,99999)
-        pdt = Product(id,identifier,shop,name,price,stock,tags,description)
+        image = request.files['image']
+        image_path = 'daveydark/src/static/' + str(image.filename) 
+        image.save(image_path)
+        pdt = Product(id,identifier,shop,name,price,stock,tags,description,url_for('static',filename=image.filename))
+        scr = Score(identifier)
+        db.session.add(scr)
         db.session.add(pdt)
         db.session.commit()
         return render_template('add_stock.html',message="Added successfully")
