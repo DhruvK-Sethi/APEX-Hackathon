@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .chartMenu {
+            width: 100vw;
+            height: 40px;
+            background: #1A1A1A;
+            color: rgba(54, 162, 235, 1);
+        }
+
+        .chartMenu p {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .chartCard {
+            width: 100vw;
+            height: calc(100vh - 40px);
+            background: rgba(54, 162, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chartBox {
+            width: 80%;
+            padding: 20px;
+            border-radius: 20px;
+            border: solid 3px rgba(54, 162, 235, 1);
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chartMenu">
+        <p>WWW.CHARTJS3.COM (Chart JS 4.2.0)</p>
+    </div>
+    <div class="chartCard">
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <script>
+        // setup 
+        const data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 12, 6, 9, 12, 3, 9],
+                borderColor: [
+                    'rgba(255, 26, 104, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(0, 0, 0, 0.2)'
+                ],
+                backgroundColor: [
+                    'rgba(255, 26, 104, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(0, 0, 0, 1)'
+                ],
+                borderWidth: 0,
+                borderSkipped: false,
+                borderRadius: 5,
+                barPercentage: 0.2,
+                categoryPercentage: 0.8,
+
+            }]
+        };
+
+
+
+
+        const progressBar = {
+            id: 'progressBar',
+            beforeDatasetsDraw(chart, args, pluginOptions) {
+                const { ctx, data, chartArea: { top, bottom, left, right, width, height }
+                    , scales: { x, y } } = chart;
+
+                ctx.save();
+                const barHeight = height / y.ticks.length * data.datasets[0].barPercentage *
+                    data.datasets[0].categoryPercentage;
+
+                data.datasets[0].data.forEach((datapoint, index) => {
+                    const fontSizeLabel = 12;
+                    ctx.font = `${fontSizeLabel}px sans-serif`;
+                    ctx.fillStyle = 'rgba(102,102,102,1)';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(data.labels[index], left, y.getPixelForValue(index) -
+                        fontSizeLabel - 5);
+
+                    const fontSizeDatapoint = 15;
+                    console.log(y.getPixelForValue(index))
+                    ctx.font = `bolder ${fontSizeDatapoint}px sans-serif`;
+                    ctx.fillStyle = 'rgba(102,102,102,1)';
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(datapoint, right, y.getPixelForValue(index) -
+                        fontSizeLabel - 5);
+
+                    ctx.beginPath();
+                    ctx.fillStyle = data.datasets[0].borderColor[index];
+                    ctx.fillRect(left, y.getPixelForValue(index) - (barHeight / 2), width, barHeight)
+                })
+
+
+            }
+        }
+
+
+        // config 
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [progressBar]
+        };
+
+        // render init block
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+
+</body>
+
+</html>
