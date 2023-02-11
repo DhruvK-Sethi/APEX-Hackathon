@@ -246,9 +246,28 @@ def view_stock():
 
 @app.route("/admin")
 def admin():
+    if session['type'] != 's':
+        return redirect(url_for('home'))
+    shop = Seller.query.filter_by(email=session['email']).first()
+    products = Product.query.filter_by(category=shop.category)
+    id_list = []
+    for product in products:
+        id_list.append(product.identifier)
+        results = db.session.query(Score).filter(Score.id.in_(id_list)).order_by(Score.score).all()
+    datas = []
+    labels = []
+    i=0
+    for result in results:
+        if(i>=10):
+            break
+        stonks = result.score_over_time.split(' ')
+        int_stonks = list(map(int,stonks))
+        datas.append(int_stonks)
+        labels.append(Product.query.filter_by(identifier=result.id).first().name)
+        i+=1
     if session['type'] == 'b':
         return redirect(url_for('home'))
-    return render_template('admin.html')
+    return render_template('admin.html',datas=datas,labels=labels)
 
 @app.route("/home",methods=["GET", "POST"])
 #home page route
