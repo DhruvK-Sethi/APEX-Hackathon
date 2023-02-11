@@ -223,7 +223,13 @@ def home():
         session['query'] = request.form['query'];
         return redirect(url_for('search'))
     if 'name' in session:
-        return render_template('home.html',username=session['name'])
+        usr = None
+        if session['type'] == 'b':
+            usr = Buyer.query.filter_by(email=session['email']).first()
+        else:
+            usr = Seller.query.filter_by(email=session['email']).first()
+        shops = Seller.query.all();
+        return render_template('home.html',username=session['name'],shops=shops,user=usr)
     return redirect(url_for('login'))
 
 @app.route("/bakery",methods=["GET", "POST"])
