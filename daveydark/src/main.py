@@ -2,6 +2,7 @@ from flask import Flask, redirect, session,url_for,render_template,request
 from flask_sqlalchemy import SQLAlchemy, query
 from geopy import distance
 from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
 from decimal import Decimal
 import random
 from numpy import require
@@ -339,10 +340,18 @@ def register():
             email = request.form['email']
             name = request.form['name']
             password = request.form['password']
-            latitude = request.form['latitude'].split('°')[0]
-            longitude = request.form['longitude'].split('°')[0]
             state = request.form['state']
             city = request.form['city']
+            geolocator = Nominatim(user_agent="geoapi")
+            latitude = 0
+            longitude = 0
+            if request.form['latitude'] == '' or request.form['longitude'] == '':
+                loc = geolocator.geocode(city + ", " + state + ", India")
+                latitude = loc.latitude
+                longitude = loc.longitude
+            else:
+                latitude = request.form['latitude'].split('°')[0]
+                longitude = request.form['longitude'].split('°')[0]
             phone = request.form['phone']
             if Seller.query.filter_by(email=email).first():
                 #email already used
@@ -362,11 +371,19 @@ def register():
             email = request.form['email']
             name = request.form['name']
             password = request.form['password']
-            latitude = request.form['latitude'].split('°')[0]
-            longitude = request.form['longitude'].split('°')[0]
             shop_state = request.form['state']
-            shop_name = request.form['shopName']
             shop_city = request.form['city']
+            geolocator = Nominatim(user_agent="geoapi")
+            latitude = 0
+            longitude = 0
+            if request.form['latitude'] == '' or request.form['longitude'] == '':
+                loc = geolocator.geocode(shop_city + ", " + shop_state + ", India")
+                latitude = loc.latitude
+                longitude = loc.longitude
+            else:
+                latitude = request.form['latitude'].split('°')[0]
+                longitude = request.form['longitude'].split('°')[0]
+            shop_name = request.form['shopName']
             shop_category = request.form['category']
             phone = request.form['phone']
             if Buyer.query.filter_by(email=email).first():
