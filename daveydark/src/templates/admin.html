@@ -13,7 +13,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     />
-   <!-- My CSS -->
+    <!-- My CSS -->
     <link
       rel="stylesheet"
       href="{{ url_for('static',filename='style_admin.css') }}"
@@ -26,7 +26,7 @@
     <section id="sidebar">
       <a href="#" class="brand">
         <i class="bx bxs-smile"></i>
-       <span class="text">AdminHub</span>
+        <span class="text">AdminHub</span>
       </a>
       <ul class="side-menu top">
         <li class="active">
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li>
-         <a href="admin.html">
+          <a href="admin.html">
             <i class="bx bxs-shopping-bag-alt"></i>
             <span class="text">My Store</span>
           </a>
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li>
-         <a href="{{url_for('view_stock')}}">
+          <a href="{{url_for('view_stock')}}">
             <i class="fa fa-eye" aria-hidden="true"></i>
             <span class="text">View Stock</span>
           </a>
@@ -59,7 +59,7 @@
             <span class="text">Update Stock</span>
           </a>
         </li>
-     </ul>
+      </ul>
     </section>
     <!-- SIDEBAR -->
 
@@ -84,8 +84,7 @@
           <span class="num">8</span>
         </a>
         <a href="#" class="profile">
-
-         <img src="#" />
+          <img src="#" />
         </a>
       </nav>
       <!-- NAVBAR -->
@@ -106,7 +105,7 @@
             </ul>
           </div>
         </div>
-       <ul class="box-info">
+        <ul class="box-info">
           <li>
             <i class="bx bxs-group"></i>
             <span class="text">
@@ -126,67 +125,16 @@
         <div class="table-data">
           <div class="order">
             <div class="head">
-             <h3>Listed Products</h3>
+              <h3>Listed Products</h3>
               <i class="bx bx-search"></i>
               <i class="bx bx-filter"></i>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>User</th>
-                 <th>Date Order</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                   <img src="#" />
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status completed">Completed</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="#" />
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="#" />
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status process">Process</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="#" />
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="#" />
-                    <p>John Doe</p>
-                  </td>
-                  <td>01-10-2021</td>
-                  <td><span class="status completed">Completed</span></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </main>
       <!-- MAIN -->
     </section>
-   <!-- CONTENT -->
+    <!-- CONTENT -->
 
     <script src="../static/admin_script.js"></script>
   </body>
