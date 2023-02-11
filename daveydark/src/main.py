@@ -272,7 +272,14 @@ def admin():
         i+=1
     if session['type'] == 'b':
         return redirect(url_for('home'))
-    return render_template('admin.html',datas=datas,labels=labels,shop=shop)
+    shop_products = Product.query.filter_by(shop=session['email'])
+    sales = []
+    for product in shop_products:
+        sale = int(product.stock_over_time.split(' ')[-2]) - int(product.stock_over_time.split(' ')[-1])
+        if sale <0:
+            sale = 0
+        sales.append(sale * product.price)
+    return render_template('admin.html',datas=datas,labels=labels,shop=shop,sales=format(sum(sales),'.2f'))
 
 @app.route("/home",methods=["GET", "POST"])
 #home page route
