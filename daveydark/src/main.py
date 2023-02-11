@@ -191,7 +191,7 @@ def product(shop,prod):
             db.session.commit()
             message = "Added to Wishlist"
             score = Score.query.filter_by(id=product.identifier).first()
-            score.score = Decimal(score.score) + Decimal('20')
+            score.score = score.score + 5
             strList = score.score_over_time.split(' ')
             strList.pop(-1)
             score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
@@ -199,13 +199,15 @@ def product(shop,prod):
         else:
             message = 'Already in wishlist'
     score = Score.query.filter_by(id=product.identifier).first()
-    score.score = Decimal(score.score) + Decimal('1')
+    score.score += 1
     strList = score.score_over_time.split(' ')
     strList.pop(-1)
-    score.score_over_time = " ".join(strList) + "{:.1f}".format(score.score)
+    score.score_over_time = " ".join(strList) + ' ' + "{:.1f}".format(score.score)
     db.session.commit()
     product.distance = calcDistance(product)
     shp = Seller.query.filter_by(email=shop).first()
+    shp.views += 1
+    db.session.commit()
     return render_template('product.html',username=session['name'],product=product,shp=shp,message=message)
 
 @app.route("/admin/update-stock",methods=["GET", "POST"])
@@ -279,7 +281,14 @@ def admin():
         if sale <0:
             sale = 0
         sales.append(sale * product.price)
-    return render_template('admin.html',datas=datas,labels=labels,shop=shop,sales=format(sum(sales),'.2f'))
+    shop_data = []
+    shop_labels = []
+    for product in shop_products:
+        scorez = Score.query.filter_by(id=product.identifier).first().score_over_time.split(' ')
+        int_scorez = list(map(float,scorez))
+        shop_data.append(int_scorez)
+        shop_labels.append(product.name)
+    return render_template('admin.html',datas=datas,labels=labels,shop=shop,sales=format(sum(sales),'.2f'),shop_data=shop_data,shop_labels=shop_labels)
 
 @app.route("/home",methods=["GET", "POST"])
 #home page route
