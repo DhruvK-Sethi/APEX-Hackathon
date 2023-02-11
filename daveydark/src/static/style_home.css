@@ -321,6 +321,10 @@ padding-top: 0.6em;
     text-decoration: none;
     color: white;
 }
+#mapContainer{
+    width: 600px;
+    height: 600px;
+}
 #categoryStationary{
     background-image: url("/static/res/bgStationary.webp"), linear-gradient(to top,rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 100%);
     background-blend-mode: multiply;

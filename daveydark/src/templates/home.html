@@ -16,6 +16,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js">
     <!-- <script src="index.js"></script> -->
 
@@ -94,6 +101,7 @@
 
     </section>
     </section>
+    <div id="mapContainer"></div>
 
 
     <footer class="footer" id="contact">
@@ -144,13 +152,33 @@
             created by <span>APEX</span> |all rights reserved !
         </div>
     </footer>
-
-
-
-
-
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="index.js"></script>
+    <script>
+        let map = L.map('mapContainer').setView([{{ user.latitude }}, {{ user.longitude }}], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+        map.invalidateSize()
+        let markers = [];
+        {%  for shop in shops %}
+            marker = (L.marker([{{ shop.latitude }}, {{ shop.longitude }}]).addTo(map));
+            var customIcon = L.icon({
+              iconUrl: 'path/to/icon.png',
+              iconSize: [38, 95],
+            });
+        if ("{{ shop.category }}" == "Bakery"){
+            marker._icon.style.color = 'red';
+        } else if("{{ shop.category }}" == "Stationary") {
+            marker._icon.style.color = 'blue';
+        } else if("{{ shop.category }}" == "Household") {
+            marker._icon.style.backgroundColor = 'pink';
+        } else {
+            marker._icon.style.backgroundColor = 'orange';
+        }
+        markers.push(marker);
+        {% endfor %}
+    </script>
 </body>
 
 </html>
