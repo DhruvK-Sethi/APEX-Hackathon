@@ -50,6 +50,7 @@ class Seller(db.Model):
     phone = db.Column(db.String(100),nullable=False)
     category = db.Column(db.String(100),nullable=False)
     products = db.relationship('Product',backref='sellers',lazy=True)
+    notification = db.Column(db.String(4096))
     def __init__(self,email,name,password,latitude,longitude,shop_state,shop_city,shop_name,phone,category):
         self.email = email
         self.name = name
@@ -61,6 +62,7 @@ class Seller(db.Model):
         self.shop_city = shop_city
         self.phone = phone
         self.category = category
+        self.notification = "Welcome to the Website |"
 
 class Product(db.Model):
     __tablename__ = 'products'
