@@ -1,0 +1,255 @@
+section{
+    margin: 0 auto;
+    margin-top: 0.5em;
+    background-color: var(--level-1-white);
+
+    width: 98%;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 0 0.5em;
+    box-shadow: var(--shadow);
+
+
+}
+
+.nav-links a{
+    width: 20em;
+}
+
+
+.login{
+    display: flex;
+    height: 50em;
+    align-items: center;
+    justify-content: space-around;
+}
+.login .map-container img{
+    width: 30vw;
+}
+.login-form{
+
+    height: 80%;
+        width: 30em;
+    background-color: var(--level-2-white);
+    border-radius: 0.2em;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--brand-orange);
+}
+.login-form heading{
+    color: var(--brand-blue);
+    margin-top: 2.5em;
+    font-size: 2em;
+    font-weight: 700;
+    font-family: 'Lobster',sans-serif;
+
+}
+.login-form form{
+    padding: 2em;
+    border: 1px solid var(--brand-blue);
+    border-radius:0.25em ;
+    font-size: 1em ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1em;
+    color: var(--black);
+    font-weight:bolder;
+    margin-top: 2.5em;
+
+
+}
+.login-form div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0.5em;
+}
+.login-form input{
+    height: 2.5em;
+    width: 15em;
+    font-size: 10pt;
+    font-weight:bolder;
+    box-shadow: var(--shadow);
+    padding-left: 1em;
+}
+.submit input,.location button{
+    padding-left: 0em;
+    font-weight: 600;
+    background-color: white;
+    border-radius: 0.2em;
+    border: 0.5px solid var(--brand-blue);
+    font-size: 1em;
+    width: 14em;
+    height: 2em;
+    font-family: 'Lato',sans-serif;
+    color: var(--brand-blue);
+
+
+}
+.submit input:hover, .location button:hover{
+    transition: border-color 0.25s ease-in-out;
+    color: var(--success);
+    border-color: var(--success);
+    cursor: pointer;
+}
+.submit input:active,.location button:active{
+    color: var(--success-clicked);
+    border-color: var(--success--clicked);
+
+}
+
+@media screen and (max-width: 530px) {
+.login{
+    flex-direction: column-reverse;
+    height: auto;
+
+}
+
+.login-form{
+    margin-top: 2em;
+    height: 38em;
+    width: 25em;
+
+}
+.login-form heading{
+    margin-top:0.5em ;
+}
+
+/* .login-form form{
+    margin-top: 0.2em;
+
+} */
+
+
+.login .map-container img{
+    width: 28em;
+}
+}
+
+/*
+Sign up starts here */
+
+.sign-up{
+    height: 35em;
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    gap: 1em;
+
+margin-bottom: 2em;
+}
+
+.sign-up img{
+    width: 40em;
+
+
+
+}
+
+
+.looking,.selling{
+    height: 80%;
+    width: 80%;
+    overflow: hidden;
+    display: flex;
+
+    flex-direction: column;
+
+}
+.looking{
+    background-color: var(--brand-blue);
+}
+.looking:hover{
+        transition: transform 0.2s ease-in-out;
+        transform: scale(1.01);
+        cursor: pointer;
+        box-shadow: var(--shadow);
+
+
+
+}
+.looking img:hover{
+    transition: transform 0.4s ease-in-out;
+    transform: scale(1.05);
+
+
+
+
+}
+ .selling img:hover{
+    transition: transform 0.4s ease-in-out;
+    transform: scale(1.05);
+
+
+
+
+}
+.selling img{
+    margin-left: -5em;
+}
+.selling{
+    background-color: var(--brand-orange);
+}
+.selling:hover{
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.01);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+
+
+
+}
+.sign-up button{
+    text-align: center;
+    font-weight: bold;
+
+    border: 0.5px solid var(--black);
+    font-size: 1.8vw;
+
+    }
+.sign-up button:HOVER{
+    cursor: pointer;
+
+    }
+    .sign-up button l{
+        color: var(--brand-blue);
+        font-size: 2.5vw;
+    }
+    .sign-up button b{
+        color: var(--brand-orange);
+        font-size: 2.5vw;
+    }
+
+@media screen and (max-width: 840px) {
+    .sign-up img{
+        width: 60vh;
+    }
+    .selling img{
+        margin-top: -2em;
+    }
+}
+@media screen and (max-width: 530px) {
+.sign-up{
+    flex-direction: column;
+    gap: 0.5em;
+}
+.looking{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.selling{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+
+}
+
+.about-us{
+    height: 30em;
+}
