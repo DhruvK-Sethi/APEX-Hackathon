@@ -39,6 +39,18 @@ li {
     --light-orange: #FFE0D3;
 }
 
+l{
+    color: var(--brand-blue);
+}
+
+b{
+    color: var(--brand-orange);
+}
+
+#logoText{
+    color: black;
+}
+
 html {
     overflow-x: hidden;
 }
