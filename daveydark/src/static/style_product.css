@@ -175,6 +175,27 @@ padding-top: 0.6em;
     flex-direction: column;
 
 }
+
+#Whatsapp {
+    width: fit-content;
+    background-color: transparent;
+}
+#Whatsapp-icon {
+   
+    
+    font-size: 40pt;
+    color: rgb(116, 235, 116);
+}
+
+#gmaps-icon {
+    width: 45px;
+        color: rgb(116, 235, 116);
+}
+#gmaps {
+    width: fit-content;
+        background-color: transparent;
+}
+
 #mapWrapper{
     width: 600px;
     height: 600px;
